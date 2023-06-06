@@ -1,0 +1,36 @@
+.redCounter {
+    color: red;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    border: 1px black solid;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: 250px;
+
+}
+
+.buttons button {
+    margin: 5px;
+    background-color: aqua;
+    border-radius: 5px;
+    width: 60px;
+}
+
+.counter {
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 250px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 2rem;
+}
+
+.border {
+
+}

@@ -1,0 +1,50 @@
+.redCounter {
+    color: red;
+}
+
+.redBackground {
+    background-color: red;
+}
+
+.container button {
+    margin: 5px;
+    background-color: aqua;
+    border-radius: 5px;
+    width: 60px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 300px;
+}
+
+.borderButton {
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 250px;
+    margin-top: 10px;
+}
+
+.borderInput {
+    border: 1px black solid;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    padding: 10px;
+    height: 60px;
+    justify-content: space-around;
+}
+
+.inputWrapper > input {
+    width: 70px;
+    text-align: center;
+}
+
+.inputWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
