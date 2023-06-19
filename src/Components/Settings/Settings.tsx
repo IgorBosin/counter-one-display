@@ -1,36 +1,32 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {Input} from "../Input/Input";
 import s from "./Settings.module.css";
 import Button from "../Button/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootState} from "../../state/store";
+import {
+    changeMaxValueAC,
+    changeStartValueAC,
+    setSettingsAC,
+    StateType,
+    toggleSettingsAC
+} from "../../state/counter_reducer";
+import {Dispatch} from "redux";
 
-type SettingsType = {
-    setStartValue: (startValue: number) => void
-    setMaxValue: (maxValue: number) => void
-    startValue: number
-    maxValue: number
-    settings: () => void
-}
+const Settings: React.FC = () => {
+    const counter = useSelector<AppRootState, StateType>(state => state.counter)
+    const dispatch: Dispatch = useDispatch()
 
-const Settings: React.FC<SettingsType> = (props) => {
-
-    const {startValue, maxValue, setStartValue, setMaxValue, settings} = props
-
-    const [error, setError] = useState<boolean | string>(false)
-
+    const settings = () => {
+        dispatch(setSettingsAC(counter.startValue))
+        dispatch(toggleSettingsAC())
+    }
     const changeStartValue = (e: ChangeEvent<HTMLInputElement>) => {
-        let presentValue = +e.currentTarget.value
-        setStartValue(presentValue)
-        presentValue >= maxValue
-            ? setError('the max number must be greater than the start number')
-            : setError(false)
+        dispatch(changeStartValueAC(+e.currentTarget.value, counter.maxValue))
     }
 
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        let presentValue = +e.currentTarget.value
-        setMaxValue(presentValue)
-        startValue >= presentValue
-            ? setError('the max number must be greater than the start number')
-            : setError(false)
+        dispatch(changeMaxValueAC(+e.currentTarget.value, counter.startValue))
     }
 
     return (
@@ -39,21 +35,21 @@ const Settings: React.FC<SettingsType> = (props) => {
                 <div className={s.inputWrapper}>
                     <span>start value:</span>
                     <Input onChange={changeStartValue}
-                           value={startValue}
-                           className={error ? s.redBackground : ''}
+                           value={counter.startValue}
+                           className={counter.error ? s.redBackground : ''}
                            typeInput={'number'}/></div>
                 <div className={s.inputWrapper}>
                     <span>max value:</span>
                     <Input onChange={changeMaxValue}
-                           value={maxValue}
-                           className={error ? s.redBackground : ''}
+                           value={counter.maxValue}
+                           className={counter.error ? s.redBackground : ''}
                            typeInput={'number'}/>
                 </div>
             </div>
-            {error
-                ? <span style={{color: "red", width:'250px'}}>{error}</span>
+            {counter.error
+                ? <span style={{color: "red", width: '250px'}}>{counter.error}</span>
                 : <div className={s.borderButton}>
-                    <Button disabled={startValue >= maxValue} callback={settings} name='set'/>
+                    <Button disabled={counter.startValue >= counter.maxValue} callback={settings} name='set'/>
                 </div>}
 
         </div>

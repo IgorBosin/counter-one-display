@@ -1,18 +1,18 @@
-
+import {useSelector} from "react-redux";
+import {AppRootState} from "./state/store";
+import Settings from "./Components/Settings/Settings";
+import {Display} from "./Components/Display/Display";
 import s from './App.module.css'
-import {useState} from "react";
+
 
 const App = () => {
-
     // const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('currentValue') || '0'))
-    const [counter, setCounter] = useState(0)
-    const [startValue, setStartValue] = useState(0)
-    const [maxValue, setMaxValue] = useState(5)
-    const [setting, setSetting] = useState(true)
+    const isSettings = useSelector<AppRootState, boolean>(state => state.counter.settings)
+
+    // const dispatch = useDispatch()
 
     const settings = () => {
-        setSetting(!setting)
-        setCounter(startValue)
+        // dispatch(setSettingsAC(counter.startValue))
         // localStorage.setItem('startValue', JSON.stringify(startValue))
         // localStorage.setItem('maxValue', JSON.stringify(maxValue))
     }
@@ -37,17 +37,9 @@ const App = () => {
 
     return (
         <div className={s.border}>
-            {setting
-                // ? <Display counter={counter}
-                //            maxValue={maxValue}
-                //            startValue={startValue}
-                //            settings={settings}
-                //            setCounter={setCounter}/>
-                // : <Settings setStartValue={setStartValue}
-                //             setMaxValue={setMaxValue}
-                //             startValue={startValue}
-                //             settings={settings}
-                //             maxValue={maxValue}/>
+            {isSettings
+                ? <Display/>
+                : <Settings/>
             }
         </div>
     );
